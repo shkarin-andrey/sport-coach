@@ -28,7 +28,7 @@ export class UserController {
     return this.userService.getAllUsers();
   }
 
-  @ApiOperation({ summary: 'Выдать роль' })
+  @ApiOperation({ summary: 'Выдать роль пользователю' })
   @ApiResponse({ status: 200 })
   @Roles('ADMIN')
   @UseGuards(RolesGuard)

@@ -1,0 +1,33 @@
+version: '3.9'
+
+services:
+  backend:
+    build: .
+    ports:
+      - 8000:8000
+      - 9229:9229
+    volumes:
+      - .:/app
+      - /app/node_modules
+    env_file:
+      - .env
+    command: npm run start:dev
+    depends_on:
+      - postgres
+    restart: always    
+
+  postgres:
+    image: postgres
+    ports:
+      - 5432:5432
+    env_file:
+      - .env
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: "trust"
+      PG_DATA: /var/lib/postgresql/data
+    volumes:  
+      - pgdata:/var/lib/postgresql/data
+    restart: always
+
+volumes:
+  pgdata:
